@@ -3,7 +3,7 @@
 	<InternalDescriptionName>Buffer Size Literal Condition</InternalDescriptionName>
 	<Explanation LCID="1033">
 		<ResultDescription format="text/plain">
-Change 1
+Change 1a
 The number literal @SourceElement at line @SourceLine of @SourceFile specifies the size of a buffer. At line @DestinationLine of @DestinationFile this number literal is used in conditional statement.
 		</ResultDescription>
 
@@ -24,10 +24,10 @@ At run time, the following scenario happens: The overflown buffer is allocated i
 
 
 		<GeneralRecommendations format="text/plain">
-Define a constant that holds the buffer size, then use this constant throughout the code. 
+Define a constant that holds the buffer size, then use this constant throughout the code.
 		</GeneralRecommendations>
 	</Explanation>
-	
+
 	<CodeSample language="objc" LCID="1033" format="text/plain">
 		<Title>Code example that is vulnerable to buffer overflow after code changes.</Title>
 		<SourceCodeExample>
@@ -35,9 +35,9 @@ Define a constant that holds the buffer size, then use this constant throughout 
 void f() {
     char buf[10];
     char* sourceString = istream.read("input");
-    if (strlen(sourceString) < 10) 
+    if (strlen(sourceString) < 10)
     {
-        strcpy(buf,sourceString); 
+        strcpy(buf,sourceString);
     }
 }
 ]]>
