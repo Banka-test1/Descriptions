@@ -4,6 +4,7 @@
 	<Explanation LCID="1033">
 		<ResultDescription format="text/plain">
 Change 1
+Change 2
 The number literal @SourceElement at line @SourceLine of @SourceFile specifies the size of a buffer. At line @DestinationLine of @DestinationFile this number literal is used in conditional statement.
 		</ResultDescription>
 
