@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QueryDescription>
+	<InternalDescriptionName>Unchecked File Operation Result Code (Jailbrake)</InternalDescriptionName>
+	<Explanation LCID="1033">
+		<ResultDescription format="text/plain">
+The result code of file operation @SourceElement at line @SourceLine of @SourceFile was ignored.
+		</ResultDescription>
+
+		<BestFixLocation format="text/plain"></BestFixLocation>
+
+
+		<Risk format="text/plain">
+Data written to temporary file may become corrupted. A buffer overflow or other unintended behavior may happen when the corrupted file is read back by the application. This may allow an attacker to seize control of the system.
+		</Risk>
+
+
+		<Cause format="text/plain">
+The application writes data to a temporary file. The write operation fails in the middle. Part of the data is written to the file, and another part is lost. The application does not check the result code of the file operation, and takes no corrective actions. The application reads back the corrupted file, and a buffer overflow or other unintended behavior happens.  An attacker exploits the buffer overflow to gain control of the application.
+
+For more information see section “Check Result Codes” in “Apple Secure Coding Guide” document: https://developer.apple.com/library/ios/documentation/Security/Conceptual/SecureCodingGuide/
+
+		</Cause>
+
+
+		<GeneralRecommendations format="text/plain">
+Check the result code of every file operation and address failures appropriately.
+		</GeneralRecommendations>
+	</Explanation>
+	
+	<CodeSample language="objc" LCID="1033" format="text/plain">
+		<Title>Example of ignoring file operation result code (insecure).</Title>
+		<SourceCodeExample><![CDATA[
+NSString* stringToWrite = @"Hello world";
+NSString* filePath = [NSTemporaryDirectory() stringByAppendingString:@"/f1.txt"];
+
+[stringToWrite writeToFile:filePath atomically:NO];
+]]></SourceCodeExample>
+	</CodeSample>
+	
+	<CodeSample language="objc" LCID="1033" format="text/plain">
+		<Title>Example of checking file operation result code (secure).</Title>
+		<SourceCodeExample><![CDATA[
+NSString* stringToWrite = @"Hello world";
+NSString* filePath = [NSTemporaryDirectory() stringByAppendingString:@"/f1.txt"];
+if (![stringToWrite writeToFile:filePath atomically:NO])
+{
+    [[NSException exceptionWithName:@"FileWriteError" reason:@"" userInfo:nil] raise];
+};
+]]></SourceCodeExample>
+	</CodeSample>
+
+</QueryDescription>

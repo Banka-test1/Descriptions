@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QueryDescription>
+	<InternalDescriptionName></InternalDescriptionName>
+	<Explanation LCID="1033">
+		<ResultDescription format="text/plain">
+			
+		</ResultDescription>
+
+		<BestFixLocation format="text/plain"></BestFixLocation>
+
+
+		<Risk format="text/plain">
+
+		</Risk>
+
+
+		<Cause format="text/plain">
+
+		</Cause>
+
+
+		<GeneralRecommendations format="text/plain">
+	
+		</GeneralRecommendations>
+	</Explanation>
+	
+	<CodeSample language="objc" LCID="1033" format="text/plain">
+		<Title></Title>
+		<SourceCodeExample>
+<![CDATA[
+
+]]>
+		</SourceCodeExample>
+	</CodeSample>
+
+</QueryDescription>

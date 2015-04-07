@@ -1,0 +1,34 @@
+<?xml version="1.0"?>
+<QuerySchema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="CxQuery.xsd">
+  <QueryDataElement>
+    <QueryId>587</QueryId>
+    <PackageId>35</PackageId>
+    <Name>Code_Injection</Name>
+    <Source>CxList_x0020_inputs_x0020__x003D__x0020_Find_Interactive_Inputs_x0028__x0029__x003B__x000D__x000A_CxList_x0020_code_x0020__x003D__x0020_Find_Code_Injection_Outputs_x0028__x0029__x003B__x000D__x000A_CxList_x0020_sanitize_x0020__x003D__x0020_Find_General_Sanitize_x0028__x0029__x003B__x000D__x000A__x000D__x000A_result_x0020__x003D__x0020_inputs.InfluencingOnAndNotSanitized_x0028_code_x002C__x0020_sanitize_x002C__x0020_CxList.InfluenceAlgorithmCalculation.NewAlgorithm_x0029__x003B_</Source>
+    <CWE>94</CWE>
+    <Comments />
+    <Severity>3</Severity>
+    <IsExecutable>true</IsExecutable>
+    <IsEncrypted>false</IsEncrypted>
+  </QueryDataElement>
+  <GroupDataElement>
+    <GroupId>35</GroupId>
+    <Name>Java_High_Risk</Name>
+    <IsReadOnly>false</IsReadOnly>
+    <IsEncrypted>false</IsEncrypted>
+    <Description />
+    <Language>2</Language>
+    <LanguageName>Java</LanguageName>
+    <PackageType>0</PackageType>
+    <PackageTypeName>Cx</PackageTypeName>
+    <ProjectId>0</ProjectId>
+  </GroupDataElement>
+</QuerySchema>
+
+<!--
+CxList inputs = Find_Interactive_Inputs();
+CxList code = Find_Code_Injection_Outputs();
+CxList sanitize = Find_General_Sanitize();
+
+result = inputs.InfluencingOnAndNotSanitized(code, sanitize, CxList.InfluenceAlgorithmCalculation.NewAlgorithm);
+-->

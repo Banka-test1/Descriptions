@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<QuerySchema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="CxQuery.xsd">
+  <QueryDataElement>
+    <QueryId>351</QueryId>
+    <PackageId>23</PackageId>
+    <Name>Aptca_Methods_Call_Non_Aptca_Methods</Name>
+    <Source>C
+	</Source>
+    <CWE>10022</CWE>
+    <Comments />
+    <Severity>0</Severity>
+    <IsExecutable>true</IsExecutable>
+    <IsEncrypted>false</IsEncrypted>
+  </QueryDataElement>
+  <GroupDataElement>
+    <GroupId>23</GroupId>
+    <Name>CSharp_Best_Coding_Practice</Name>
+    <IsReadOnly>false</IsReadOnly>
+    <IsEncrypted>false</IsEncrypted>
+    <Description />
+    <Language>1</Language>
+    <LanguageName>CSharp</LanguageName>
+    <PackageType>0</PackageType>
+    <PackageTypeName>Cx</PackageTypeName>
+    <ProjectId>0</ProjectId>
+  </GroupDataElement>
+</QuerySchema>
+

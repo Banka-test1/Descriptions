@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QueryDescription>
+	<InternalDescriptionName>Third Party Keyboards On Sensitive Field</InternalDescriptionName>
+	<Explanation LCID="1033">
+		<ResultDescription format="text/plain">
+The @SourceElement at line @SourceLine of @SourceFile contains sensitive data, and is not protected from third party keyboards by either: 
+1) Setting secureTextEntry=YES, 
+-Or- 
+2) Disabling third party keyboards application wide.
+		</ResultDescription>
+
+		<BestFixLocation format="text/plain"></BestFixLocation>
+
+
+		<Risk format="text/plain">
+A malicious third party keyboard may perform key-logging and transmit the logged information to an attacker’s server. By default, all UITextField and UITextView objects with the secureTextEntry property set to YES disallow the usage of third party keyboards. However, if secureTextEntry is set to NO, to make the characters visible for example, a third party keyboard may steal sensitive data.
+		</Risk>
+
+
+		<Cause format="text/plain">
+The user installs a malicious third party keyboard that presents itself as legitimate. The user taps a UITextField in the application UI to enter his social security number. The UITextField has its secureTextEntry property set to NO, so that typed-in characters are visible. In this case, third party keyboards are available for use. The user chooses to use the malicious keyboard. The keyboard logs the entered social security number and sends it to an attacker's server. 
+		</Cause>
+
+
+		<GeneralRecommendations format="text/plain">
+1.	Mark the UITextView and UITextField objects that contain sensitive data as secure by setting the secureTextEntry property to YES. See example “Marking a UITextField as secure”.
+-Or-
+2.	Disable the usage of third party keyboards entirely in your application. Note that this may degrade the user experience of your application. See example “To disabling third party keyboards, add the following code to your UIApplicationDelegate”.
+		</GeneralRecommendations>
+	</Explanation>
+	
+	<CodeSample language="objc" LCID="1033" format="text/plain">
+		<Title>Marking a UITextField as secure</Title>
+		<SourceCodeExample><![CDATA[
+UITextField* textField = [[UITextFieldalloc] init];
+textField.secureTextEntry = YES;
+]]></SourceCodeExample>
+	</CodeSample>
+
+	<CodeSample language="objc" LCID="1033" format="text/plain">
+		<Title>To disabling third party keyboards, add the following code to your UIApplicationDelegate</Title>
+		<SourceCodeExample><![CDATA[
+-(BOOL)application:(UIApplication *)application shouldAllowExtensionPointIdentifier:(NSString *)extensionPointIdentifier
+{
+
+    if (extensionPointIdentifier == UIApplicationKeyboardExtensionPointIdentifier)
+    {
+        return NO; 
+    }
+
+    return YES;
+}
+]]></SourceCodeExample>
+	</CodeSample>
+
+</QueryDescription>

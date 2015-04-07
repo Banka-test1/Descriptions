@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QueryDescription>
+	<InternalDescriptionName>File Referenced By Name (Jailbrake)</InternalDescriptionName>
+
+	<Explanation LCID="1033">
+		<ResultDescription format="text/plain">
+A method @SourceElement at line @SourceLine of @SourceFile accessing a file by filename.
+		</ResultDescription>
+
+		<BestFixLocation format="text/plain"></BestFixLocation>
+
+
+		<Risk format="text/plain">
+In a jail-broken device, an attacker could manipulate the contents of a file written by the application.  A buffer overflow or other unintended behavior may happen when the modified file is read back by the application. This may allow an attacker to seize control of the system.
+		</Risk>
+
+
+		<Cause format="text/plain">
+The application creates a temporary file. An attacker detects a file creation event, deletes the created file, and creates a new file with the same name but different permissions. The application writes to a file referencing it by name. Data is written to the file owned by the attacker without the application noticing it. The attacker steals sensitive information from the temporary file or modifies its content. The application reads back the tampered file, and a buffer overflow or other unintended behavior happens.  The attacker exploits the buffer overflow to gain control of the application.
+
+For more information see section “Files in Publicly Writable Directories Are Dangerous” in “Apple Secure Coding Guide” document: https://developer.apple.com/library/ios/documentation/Security/Conceptual/SecureCodingGuide/
+
+		</Cause>
+
+
+		<GeneralRecommendations format="text/plain">
+Reference all files by descriptor rather than by name.
+		</GeneralRecommendations>
+	</Explanation>
+	
+	<CodeSample language="objc" LCID="1033" format="text/plain">
+		<Title>Example of insecure way to reference files by name.</Title>
+		<SourceCodeExample><![CDATA[
+NSString* fileName = [NSTemporaryDirectory() stringByAppendingString:@"/f1.txt"];
+
+NSString* stringToWrite = @"Hello world";
+[stringToWrite writeToFile:fileName atomically:YES];
+	]]></SourceCodeExample>
+	</CodeSample>
+	
+	<CodeSample language="objc" LCID="1033" format="text/plain">
+		<Title>Example of secure way to reference files by descriptor.</Title>
+		<SourceCodeExample><![CDATA[
+NSString* fileNameTemplate = [NSTemporaryDirectory() stringByAppendingString:@"/myTmpFile-XXXXXX.txt"];
+const size_t bufLength = 2048;
+char* fileNameBuf[bufLength];
+strncpy(fileNameBuf, [fileNameTemplate cStringUsingEncoding:NSUTF8StringEncoding], bufLength);
+int fileDescriptor = mkstemp(fileNameBuf);
+NSFileHandle* fileHandle = [[NSFileHandle alloc] initWithFileDescriptor:fileDescriptor];
+
+NSString* stringToWrite = @"Hello world";
+[fileHandle writeData: [stringToWrite dataUsingEncoding:NSUTF8StringEncoding]];
+]]></SourceCodeExample>
+	</CodeSample>
+
+</QueryDescription>

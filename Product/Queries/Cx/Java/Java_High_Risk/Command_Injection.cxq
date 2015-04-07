@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<QuerySchema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="CxQuery.xsd">
+  <QueryDataElement>
+    <QueryId>588</QueryId>
+    <PackageId>35</PackageId>
+    <Name>Command_Injection</Name>
+    <Source>Cx</Source>
+    <CWE>77</CWE>
+    <Comments />
+    <Severity>3</Severity>
+    <IsExecutable>true</IsExecutable>
+    <IsEncrypted>false</IsEncrypted>
+  </QueryDataElement>
+  <GroupDataElement>
+    <GroupId>35</GroupId>
+    <Name>Java_High_Risk</Name>
+    <IsReadOnly>false</IsReadOnly>
+    <IsEncrypted>false</IsEncrypted>
+    <Description />
+    <Language>2</Language>
+    <LanguageName>Java</LanguageName>
+    <PackageType>0</PackageType>
+    <PackageTypeName>Cx</PackageTypeName>
+    <ProjectId>0</ProjectId>
+  </GroupDataElement>
+</QuerySchema>
+

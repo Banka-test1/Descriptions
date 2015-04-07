@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QueryDescription>
+	<InternalDescriptionName>Buffer Size Literal Condition</InternalDescriptionName>
+	<Explanation LCID="1033">
+		<ResultDescription format="text/plain">
+The number literal @SourceElement at line @SourceLine of @SourceFile specifies the size of a buffer. At line @DestinationLine of @DestinationFile this number literal is used in conditional statement.
+		</ResultDescription>
+
+		<BestFixLocation format="text/plain"></BestFixLocation>
+
+
+		<Risk format="text/plain">
+An attacker can exploit the buffer overflow to execute an arbitrary code with the privileges of the vulnerable application.
+		</Risk>
+
+
+		<Cause format="text/plain">
+Buffer size is specified by a number literal, and access to the buffer is checked using number literal. A developer make changes to the core, and reduces the allocated buffer size, but forgets to reduce the literal in conditional statement. A buffer overflow is created.
+
+At run time, the following scenario happens: The overflown buffer is allocated in stack. Right after the end of the buffer, the function return address is located. An attacker manipulates the input in such a way that when data is written into the buffer the return address is overwritten. The new return address points to a memory segment under the attacker control. When the function returns, the attacker code is executed with the application privileges.
+
+		</Cause>
+
+
+		<GeneralRecommendations format="text/plain">
+Define a constant that holds the buffer size, then use this constant throughout the code. 
+		</GeneralRecommendations>
+	</Explanation>
+	
+	<CodeSample language="objc" LCID="1033" format="text/plain">
+		<Title>Code example that is vulnerable to buffer overflow after code changes.</Title>
+		<SourceCodeExample>
+<![CDATA[
+void f() {
+    char buf[10];
+    char* sourceString = istream.read("input");
+    if (strlen(sourceString) < 10) 
+    {
+        strcpy(buf,sourceString); 
+    }
+}
+]]>
+		</SourceCodeExample>
+	</CodeSample>
+
+	<CodeSample language="objc" LCID="1033" format="text/plain">
+		<Title>Code that is resilient to buffer overflow.</Title>
+		<SourceCodeExample><![CDATA[
+void f()
+{
+    const int MAX_INPUT_SIZE = 256;
+    const int BUFFER_SIZE = 10;
+    char buf[BUFFER_SIZE];
+    char* sourceString = istream.read("input");
+    if (strnlen(sourceString,MAX_INPUT_SIZE) < BUFFER_SIZE)
+    {
+        strcpy(buf,sourceString);
+    }
+}
+]]></SourceCodeExample>
+	</CodeSample>
+
+</QueryDescription>

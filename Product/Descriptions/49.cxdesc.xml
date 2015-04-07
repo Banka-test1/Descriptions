@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<QueryDescription>
+	<InternalDescriptionName>Unchecked C-String Conversion</InternalDescriptionName>
+	<Explanation LCID="1033">
+		<ResultDescription format="text/plain">
+The element @SourceElement at line @SourceLine of @SourceFile contains a C-String that was converted from a CFString object. The length of @SourceElement was not checked after conversion.
+		</ResultDescription>
+
+		<BestFixLocation format="text/plain"></BestFixLocation>
+
+
+		<Risk format="text/plain">
+Converted C-String length may be less than the CFString length. If the program then makes decisions based on that erroneously converted string, any number of erroneous behaviors can result. 
+		</Risk>
+
+
+		<Cause format="text/plain">
+A CFString have an explicit length and can contain null bytes at arbitrary locations in the data. A CFString with a null character in the middle is converted into C-String. The resulting C-String is evaluated. The application behaves incorrectly behavior because the resulting C string effectively ends at the first null byte.
+			
+Example of a real life attack:
+			
+This vulnerability occurred in many SSL stacks a few years ago. By applying for an SSL cert for a carefully crafted subdomain of a domain that you own, you could effectively create a certificate that was valid for arbitrary domains. 
+			
+Consider a subdomain in the form targetdomain.tld[null_byte].yourdomain.tld. 
+			
+Because the certificate signing request contains a Pascal string (which like CFString can contain null characters), assuming that the certificate authority interprets it correctly, the certificate authority would contact the owner of yourdomain.tld and would ask for permission to deliver the certificate. Because you own the domain, you would agree to it. You would then have a certificate that is valid for the rather odd-looking subdomain in question. 
+			
+When checking the certificate for validity, however, many SSL stacks incorrectly converted that Pascal string into a C string without any validity checks. When this happened, the resulting C string contained only the targetdomain.tld portion. The SSL stack then compared that truncated version with the domain the user requested, and interpreted the certificate as being valid for the targeted domain. 
+			
+In some cases, it was even possible to construct wildcard certificates that were valid for every possible domain in such browsers (*.com[null] .yourdomain.tld would match every .com address, for example). 
+			
+For more information see section “Avoiding Buffer Underflows” in “Apple Secure Coding Guide” document: https://developer.apple.com/library/ios/documentation/Security/Conceptual/SecureCodingGuide/
+
+		</Cause>
+
+
+		<GeneralRecommendations format="text/plain">
+1.	Avoid converting non-C strings (CFStringRef objects, NSString objects, CFDataRef objects) into C strings if possible. Instead, work with the strings in their original format.
+2.	If this is not possible, always perform length checks on the resulting C string or check for null bytes in the source data.
+	
+		</GeneralRecommendations>
+	</Explanation>
+	
+	<CodeSample language="objc" LCID="1033" format="text/plain">
+		<Title>Example of converting CFString to C-String without length check (insecure).</Title>
+		<SourceCodeExample><![CDATA[
+CFStringRef s1 = CFSTR("Hello");
+size_t buf_len = 10;
+char buffer[buf_len];
+CFStringGetCString(s1,buffer,buf_len,kCFStringEncodingASCII);
+]]></SourceCodeExample>
+	</CodeSample>
+
+	<CodeSample language="objc" LCID="1033" format="text/plain">
+		<Title></Title>
+		<SourceCodeExample><![CDATA[
+CFStringRef s1 = CFSTR("Hello");
+size_t buf_len = 10;
+char buffer[buf_len];
+CFStringGetCString(s1,buffer,buf_len,kCFStringEncodingASCII);
+if (strnlen(buffer,buf_len) != CFStringGetLength(s1))
+{
+    NSLog(@"Error");
+    return;
+};
+]]></SourceCodeExample>
+	</CodeSample>
+
+</QueryDescription>

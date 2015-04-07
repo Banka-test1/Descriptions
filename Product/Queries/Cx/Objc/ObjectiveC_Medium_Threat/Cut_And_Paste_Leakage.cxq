@@ -1,0 +1,26 @@
+<?xml version="1.0"?>
+<QuerySchema xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="CxQuery.xsd">
+  <QueryDataElement>
+    <QueryId>2191</QueryId>
+    <PackageId>1300</PackageId>
+    <Name>Cut_And_Paste_Leakage</Name>
+    <Source>_x</Source>
+    <CWE>359</CWE>
+    <Comments />
+    <Severity>2</Severity>
+    <IsExecutable>true</IsExecutable>
+    <IsEncrypted>false</IsEncrypted>
+  </QueryDataElement>
+  <GroupDataElement>
+    <GroupId>1300</GroupId>
+    <Name>ObjectiveC_Medium_Threat</Name>
+    <IsReadOnly>false</IsReadOnly>
+    <IsEncrypted>false</IsEncrypted>
+    <Description />
+    <Language>4096</Language>
+    <LanguageName>Objc</LanguageName>
+    <PackageType>0</PackageType>
+    <PackageTypeName>Cx</PackageTypeName>
+    <ProjectId>0</ProjectId>
+  </GroupDataElement>
+</QuerySchema>
